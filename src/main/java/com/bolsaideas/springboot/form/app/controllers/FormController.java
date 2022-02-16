@@ -12,10 +12,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.bolsaideas.springboot.form.app.models.domain.Usuario;
 
+/**
+ * Con @SessionAttributes mantenemos los datos con la sesión, así no se pierden
+ * si no se informan en el formulario
+ * 
+ * @author Adrián
+ *
+ */
 @Controller
+@SessionAttributes("user")
 public class FormController {
 
 	@GetMapping({ "/form" })
@@ -45,7 +55,8 @@ public class FormController {
 //	@RequestParam(value = "username") String usernameM,
 //	@RequestParam String password, @RequestParam String email
 	@PostMapping("/form")
-	public String procesar(@Valid @ModelAttribute("user") Usuario usuario, BindingResult result, Model model) {
+	public String procesar(@Valid @ModelAttribute("user") Usuario usuario, BindingResult result, Model model,
+			SessionStatus status) {
 		model.addAttribute("titulo", "Resultado del formulario");
 		if (result.hasErrors()) {
 
@@ -59,6 +70,9 @@ public class FormController {
 			return "form";
 		}
 		model.addAttribute("usuario", usuario);
+		// Se elimina el objeto usuario de la sesión una vez hemos trabajado los datos
+		// con setComplete()
+		status.setComplete();
 		return "resultado";
 	}
 }
