@@ -1,24 +1,29 @@
 package com.bolsaideas.springboot.form.app.models.domain;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class Usuario {
 
 	private String identificador;
 
-	@NotEmpty
+	// Podemos personalizar los mensajes de error con message
+	@NotEmpty(message = "El nombre no debería estar vacío")
 	private String nombre;
 
 	@NotEmpty
 	private String apellido;
 
 	@NotEmpty
+	@Size(min = 3, max = 8)
 	private String username;
 
 	@NotEmpty
 	private String password;
 
 	@NotEmpty
+	@Email
 	private String email;
 
 	public String getUsername() {
