@@ -49,13 +49,17 @@ public class FormController {
 		binder.addValidators(validador);
 		/**
 		 * registerCustomEditor: Interceptamos el valor de un campo y lo modificamos
-		 * Otra forma de hacer el @DateTimeFormat del campo en la clase usuario
+		 * Otra forma de hacer el @DateTimeFormat del campo en la clase usuario Aplica a
+		 * todos los campos que estén definidos como date
 		 */
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		// Define si el analizador es estricto o tolerante al poner mal el formato de la
 		// fecha
 		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+//		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+		// Así especifiamos sobre que campo en concreto trabajamos y que no aplique a
+		// todos
+		binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(dateFormat, true));
 	}
 
 	@GetMapping({ "/form" })
