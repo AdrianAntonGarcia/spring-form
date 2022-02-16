@@ -1,11 +1,16 @@
 package com.bolsaideas.springboot.form.app.models.domain;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Usuario {
 
+	@NotEmpty
 	private String username;
 
+	@NotEmpty
 	private String password;
 
+	@NotEmpty
 	private String email;
 
 	public String getUsername() {
