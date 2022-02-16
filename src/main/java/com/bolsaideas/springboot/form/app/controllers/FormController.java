@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bolsaideas.springboot.form.app.models.domain.Usuario;
+
 @Controller
 public class FormController {
 
@@ -18,10 +20,12 @@ public class FormController {
 	@PostMapping("/form")
 	public String procesar(Model model, @RequestParam(value = "username") String usernameM,
 			@RequestParam String password, @RequestParam String email) {
+		Usuario usuario = new Usuario();
+		usuario.setUsername(usernameM);
+		usuario.setEmail(email);
+		usuario.setPassword(password);
 		model.addAttribute("titulo", "Resultado del formulario");
-		model.addAttribute("username", usernameM);
-		model.addAttribute("password", password);
-		model.addAttribute("email", email);
+		model.addAttribute("usuario", usuario);
 		return "resultado";
 	}
 }
