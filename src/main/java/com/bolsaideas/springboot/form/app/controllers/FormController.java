@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +35,13 @@ public class FormController {
 	@Autowired
 	private UsuarioValidador validador;
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+//		Si usamos set reemplaza todos los validadores que hubiera antes incluidos los de la clase Usuario
+//		binder.setValidator(validador);
+		binder.addValidators(validador);
+	}
+
 	@GetMapping({ "/form" })
 	public String form(Model model) {
 		Usuario usuario = new Usuario();
@@ -42,6 +51,11 @@ public class FormController {
 		model.addAttribute("titulo", "Formulario usuarios");
 		model.addAttribute("user", usuario);
 		return "form";
+	}
+
+	@ModelAttribute("user")
+	public Usuario getUserObject() {
+		return new Usuario();
 	}
 
 	/**
@@ -62,7 +76,8 @@ public class FormController {
 	@PostMapping("/form")
 	public String procesar(@Valid @ModelAttribute("user") Usuario usuario, BindingResult result, Model model,
 			SessionStatus status) {
-		validador.validate(usuario, result);
+		// Forma manual
+		// validador.validate(usuario, result);
 		model.addAttribute("titulo", "Resultado del formulario");
 		if (result.hasErrors()) {
 
