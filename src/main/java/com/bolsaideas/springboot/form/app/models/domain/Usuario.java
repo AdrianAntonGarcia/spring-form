@@ -5,10 +5,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.bolsaideas.springboot.form.app.validation.IdentificadorRegex;
+
 public class Usuario {
 
 	// [0-9] y \\d es lo mismo
 	// @Pattern(regexp = "[0-9]{2}[.][\\d]{3}[.][\\d]{3}[-][a-zA-Z]{1}")
+	@IdentificadorRegex
 	private String identificador;
 
 	// Podemos personalizar los mensajes de error con message
