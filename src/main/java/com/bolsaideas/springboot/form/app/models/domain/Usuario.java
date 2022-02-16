@@ -9,6 +9,7 @@ public class Usuario {
 	private String identificador;
 
 	// Podemos personalizar los mensajes de error con message
+	// Se sobrescribe si hay algo en el messages.properties
 	@NotEmpty(message = "El nombre no debería estar vacío")
 	private String nombre;
 
