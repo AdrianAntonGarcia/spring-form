@@ -1,7 +1,9 @@
 package com.bolsaideas.springboot.form.app.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 //import java.util.HashMap;
 //import java.util.Map;
@@ -80,6 +82,11 @@ public class FormController {
 	@ModelAttribute("user")
 	public Usuario getUserObject() {
 		return new Usuario();
+	}
+
+	@ModelAttribute("paises")
+	public List<String> paises() {
+		return Arrays.asList("España", "México", "Chile", "Argentina", "Perú", "Colombia", "Venezuela");
 	}
 
 	/**
