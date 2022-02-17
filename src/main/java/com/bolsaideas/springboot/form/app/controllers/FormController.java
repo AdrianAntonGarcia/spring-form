@@ -91,16 +91,9 @@ public class FormController {
 		binder.registerCustomEditor(Role.class, "roles", rolesEditor);
 	}
 
-	@GetMapping({ "/form" })
-	public String form(Model model) {
-		Usuario usuario = new Usuario();
-		usuario.setIdentificador("24.243.243-K");
-		usuario.setNombre("Adrián");
-		usuario.setApellido("Anton");
-		usuario.setHabilitar(true);
-		model.addAttribute("titulo", "Formulario usuarios");
-		model.addAttribute("user", usuario);
-		return "form";
+	@ModelAttribute("generos")
+	public List<String> getGeneros() {
+		return Arrays.asList("Hombre", "Mujer");
 	}
 
 	@ModelAttribute("user")
@@ -159,6 +152,18 @@ public class FormController {
 		paises.put("CO", "Colombia");
 		paises.put("VE", "Venezuela");
 		return paises;
+	}
+
+	@GetMapping({ "/form" })
+	public String form(Model model) {
+		Usuario usuario = new Usuario();
+		usuario.setIdentificador("24.243.243-K");
+		usuario.setNombre("Adrián");
+		usuario.setApellido("Anton");
+		usuario.setHabilitar(true);
+		model.addAttribute("titulo", "Formulario usuarios");
+		model.addAttribute("user", usuario);
+		return "form";
 	}
 
 	/**
