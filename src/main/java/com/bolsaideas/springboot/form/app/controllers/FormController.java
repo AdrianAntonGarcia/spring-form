@@ -30,8 +30,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.bolsaideas.springboot.form.app.editors.NombreMayusculaEditor;
 import com.bolsaideas.springboot.form.app.editors.PaisPropertyEditor;
 import com.bolsaideas.springboot.form.app.models.domain.Pais;
+import com.bolsaideas.springboot.form.app.models.domain.Role;
 import com.bolsaideas.springboot.form.app.models.domain.Usuario;
 import com.bolsaideas.springboot.form.app.services.PaisService;
+import com.bolsaideas.springboot.form.app.services.RoleService;
 import com.bolsaideas.springboot.form.app.validation.UsuarioValidador;
 
 /**
@@ -53,6 +55,9 @@ public class FormController {
 
 	@Autowired
 	private PaisPropertyEditor paisPropertyEditor;
+
+	@Autowired
+	private RoleService roleService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -113,6 +118,11 @@ public class FormController {
 		roles.put("ROLE_USER", "Usuario");
 		roles.put("ROLE_MODERATOR", "Moderador");
 		return roles;
+	}
+
+	@ModelAttribute("listaRolesObject")
+	public List<Role> getListaRolesObject() {
+		return this.roleService.listar();
 	}
 
 	@ModelAttribute("paises")
