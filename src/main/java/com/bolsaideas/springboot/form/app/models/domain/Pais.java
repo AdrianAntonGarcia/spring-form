@@ -1,12 +1,10 @@
 package com.bolsaideas.springboot.form.app.models.domain;
 
-import javax.validation.constraints.NotEmpty;
-
 public class Pais {
 
 //	@NotNull
 	private Integer id;
-	@NotEmpty
+//	@NotEmpty
 	private String codigo;
 	private String nombre;
 

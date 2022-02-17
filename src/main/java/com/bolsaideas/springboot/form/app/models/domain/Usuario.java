@@ -2,7 +2,6 @@ package com.bolsaideas.springboot.form.app.models.domain;
 
 import java.util.Date;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -61,7 +60,8 @@ public class Usuario {
 	 * Cuándo es un objeto, con el valid le indicas que pase las validaciones que
 	 * tenga internamente ese objeto
 	 */
-	@Valid
+//	@Valid
+	@NotNull
 	private Pais pais;
 
 	public String getUsername() {
