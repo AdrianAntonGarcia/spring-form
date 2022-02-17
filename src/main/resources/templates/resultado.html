@@ -7,6 +7,7 @@
 <body>
 	<h1 th:text="${titulo}"></h1>
 	<ul>
+		<li th:text="'Hablitado: ' + ${usuario.habilitar}"></li>
 		<li th:text="${usuario.nombre}"></li>
 		<li th:text="${usuario.apellido}"></li>
 		<li th:text="${usuario.username}"></li>
@@ -21,7 +22,7 @@
 	</ul>
 	<div>Roles</div>
 	<ul>
-		<li  th:each="role: ${usuario.roles}" th:text="${role.nombre}"></li>
+		<li th:each="role: ${usuario.roles}" th:text="${role.nombre}"></li>
 	</ul>
 </body>
 </html>

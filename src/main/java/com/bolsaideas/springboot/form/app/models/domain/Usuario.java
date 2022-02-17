@@ -68,6 +68,16 @@ public class Usuario {
 	@NotEmpty
 	private List<Role> roles;
 
+	private Boolean habilitar;
+
+	public Boolean getHabilitar() {
+		return habilitar;
+	}
+
+	public void setHabilitar(Boolean habilitar) {
+		this.habilitar = habilitar;
+	}
+
 	public List<Role> getRoles() {
 		return roles;
 	}
