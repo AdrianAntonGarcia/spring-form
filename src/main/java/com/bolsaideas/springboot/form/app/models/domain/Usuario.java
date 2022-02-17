@@ -1,6 +1,7 @@
 package com.bolsaideas.springboot.form.app.models.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -63,6 +64,17 @@ public class Usuario {
 //	@Valid
 	@NotNull
 	private Pais pais;
+
+	@NotEmpty
+	private List<String> roles;
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
 	public String getUsername() {
 		return username;
