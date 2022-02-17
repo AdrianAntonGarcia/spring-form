@@ -29,6 +29,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.bolsaideas.springboot.form.app.editors.NombreMayusculaEditor;
 import com.bolsaideas.springboot.form.app.editors.PaisPropertyEditor;
+import com.bolsaideas.springboot.form.app.editors.RolesEditor;
 import com.bolsaideas.springboot.form.app.models.domain.Pais;
 import com.bolsaideas.springboot.form.app.models.domain.Role;
 import com.bolsaideas.springboot.form.app.models.domain.Usuario;
@@ -55,6 +56,9 @@ public class FormController {
 
 	@Autowired
 	private PaisPropertyEditor paisPropertyEditor;
+
+	@Autowired
+	private RolesEditor rolesEditor;
 
 	@Autowired
 	private RoleService roleService;
@@ -84,6 +88,7 @@ public class FormController {
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditor());
 		binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
 		binder.registerCustomEditor(Pais.class, "pais", paisPropertyEditor);
+		binder.registerCustomEditor(Role.class, "roles", rolesEditor);
 	}
 
 	@GetMapping({ "/form" })
