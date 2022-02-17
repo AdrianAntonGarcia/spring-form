@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 //import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -185,13 +186,12 @@ public class FormController {
 //	@RequestParam(value = "username") String usernameM,
 //	@RequestParam String password, @RequestParam String email
 	@PostMapping("/form")
-	public String procesar(@Valid @ModelAttribute("user") Usuario usuario, BindingResult result, Model model,
-			SessionStatus status) {
+	public String procesar(@Valid @ModelAttribute("user") Usuario usuario, BindingResult result, Model model) {
 		// Forma manual
 		// validador.validate(usuario, result);
-		model.addAttribute("titulo", "Resultado del formulario");
-		if (result.hasErrors()) {
 
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Resultado del formulario");
 //			Forma manual:
 //			Map<String, String> errores = new HashMap<>();
 //			result.getFieldErrors().forEach(err -> {
@@ -201,9 +201,20 @@ public class FormController {
 //			model.addAttribute("error", errores);
 			return "form";
 		}
-		model.addAttribute("usuario", usuario);
+//		model.addAttribute("usuario", usuario);
 		// Se elimina el objeto usuario de la sesión una vez hemos trabajado los datos
 		// con setComplete()
+
+		return "redirect:/ver";
+	}
+
+	@GetMapping("/ver")
+	public String ver(@SessionAttribute(name = "user", required = false) Usuario usuario, Model model,
+			SessionStatus status) {
+		if (usuario == null) {
+			return "redirect:/form";
+		}
+		model.addAttribute("usuario", usuario);
 		status.setComplete();
 		return "resultado";
 	}
