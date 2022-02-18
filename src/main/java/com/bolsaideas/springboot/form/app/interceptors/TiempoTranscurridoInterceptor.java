@@ -44,6 +44,8 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
 		Integer delay = random.nextInt(500);
 		// paramos el hilo entre 0 y 499 ms random, simulamos una carga
 		Thread.sleep(delay);
+		// Como redireccionar
+//		response.sendRedirect(request.getContextPath().concat("/login"));
 		// Si retormanos true continua la ejecución, si es false termina el proceso
 		return true;
 	}
