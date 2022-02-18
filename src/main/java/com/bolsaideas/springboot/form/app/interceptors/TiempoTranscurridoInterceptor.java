@@ -24,6 +24,12 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		/**
+		 * Uso del getMethod para comprobar el tipo de petición
+		 */
+//		if (request.getMethod().equalsIgnoreCase("get")) {
+//			return true;
+//		}
+		/**
 		 * Preguntamos si es una petición del controlador
 		 */
 		if (handler instanceof HandlerMethod) {
@@ -48,8 +54,14 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		if (request.getAttribute("tiempoInicio") == null) {
+			return;
+		}
 		long tiempoFin = System.currentTimeMillis();
-		long tiempoInicio = (Long) request.getAttribute("tiempoInicio");
+		long tiempoInicio = 0;
+
+		tiempoInicio = (Long) request.getAttribute("tiempoInicio");
+
 		long tiempoTranscurrido = tiempoFin - tiempoInicio;
 		/**
 		 * Todos los recursos que tenemos lanzan peticiones http (bootstrap, thymeleaf

@@ -19,7 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		/**
 		 * Si no le ponemos el addPathPatters se aplica a todas las peticiones
 		 */
-		registry.addInterceptor(tiempoTranscurridoInterceptor).addPathPatterns("/form", "/ver");
+		registry.addInterceptor(tiempoTranscurridoInterceptor).addPathPatterns("/form/**", "/ver");
 	}
 
 }
