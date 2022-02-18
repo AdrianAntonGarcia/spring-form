@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-@Component
+@Component("tiempoTranscurridoInterceptor")
 public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(TiempoTranscurridoInterceptor.class);
@@ -22,7 +23,15 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		/**
+		 * Preguntamos si es una petición del controlador
+		 */
+		if (handler instanceof HandlerMethod) {
+			HandlerMethod metodo = (HandlerMethod) handler;
+			logger.info("Es un método del controlador: " + metodo.getMethod().getName());
+		}
 		logger.info("TiempoTranscurridoInterceptor: preHandler() entrando...");
+		logger.info("Interceptando: " + handler);
 		long tiempoInicio = System.currentTimeMillis();
 		request.setAttribute("tiempoInicio", tiempoInicio);
 		Random random = new Random();
@@ -42,7 +51,12 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
 		long tiempoFin = System.currentTimeMillis();
 		long tiempoInicio = (Long) request.getAttribute("tiempoInicio");
 		long tiempoTranscurrido = tiempoFin - tiempoInicio;
-		if (modelAndView != null) {
+		/**
+		 * Todos los recursos que tenemos lanzan peticiones http (bootstrap, thymeleaf
+		 * etc), eso no va a llevar modelAndView, por lo que si no ponemos la condición,
+		 * falla. La primera condición es extra, con el != null sobra
+		 */
+		if (handler instanceof HandlerMethod && modelAndView != null) {
 			modelAndView.addObject("tiempoTranscurrido", tiempoTranscurrido);
 		}
 		logger.info("tiempoTranscurrido: " + tiempoTranscurrido + " milisegundos");
